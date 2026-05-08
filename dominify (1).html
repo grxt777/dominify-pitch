@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dominify — ATM Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0A0A0A;
+  --white: #FAFAFA;
+  --gray: #6B7280;
+  --light: #F4F4F2;
+  --border: #E2E2DE;
+  --accent: #0A0A0A;
+  --muted: #9CA3AF;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--black);
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(250,250,250,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 3px;
+  color: var(--black); text-decoration: none;
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 13px; color: var(--gray); text-decoration: none;
+  font-weight: 500; letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--black); }
+.nav-cta {
+  background: var(--black); color: var(--white);
+  padding: 9px 22px; font-size: 13px; font-weight: 500;
+  text-decoration: none; letter-spacing: 0.3px;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.8; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 48px 80px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background: var(--white);
+  z-index: 0;
+}
+
+/* Grid lines */
+.hero-grid {
+  position: absolute; inset: 0; z-index: 1;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.5;
+}
+
+.hero-content { position: relative; z-index: 2; }
+
+.hero-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--gray);
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-label::before {
+  content: '';
+  display: block; width: 32px; height: 1px;
+  background: var(--gray);
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(80px, 14vw, 180px);
+  line-height: 0.9;
+  letter-spacing: -2px;
+  color: var(--black);
+  margin-bottom: 40px;
+}
+
+.hero-bottom {
+  display: flex; align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.hero-desc {
+  max-width: 480px;
+  font-size: 16px; line-height: 1.7;
+  color: var(--gray); font-weight: 300;
+}
+
+.hero-stats {
+  display: flex; gap: 0;
+  border: 1px solid var(--border);
+}
+.hero-stat {
+  padding: 24px 36px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 38px; letter-spacing: 1px;
+  line-height: 1;
+  display: block;
+}
+.hero-stat-l {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-top: 4px; display: block;
+}
+
+/* SECTION BASE */
+section {
+  padding: 120px 48px;
+  border-bottom: 1px solid var(--border);
+}
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 48px;
+  display: flex; align-items: center; gap: 16px;
+}
+.section-label span {
+  color: var(--border);
+  font-size: 9px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 6vw, 80px);
+  line-height: 0.95; letter-spacing: -1px;
+  margin-bottom: 64px;
+}
+
+/* PROBLEM */
+#problem { background: var(--black); color: var(--white); }
+#problem .section-label { color: #555; }
+#problem .section-label span { color: #333; }
+#problem .section-title { color: var(--white); }
+
+.problem-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; border: 1px solid #222;
+}
+.problem-card {
+  padding: 48px 40px;
+  border-right: 1px solid #222;
+  position: relative;
+}
+.problem-card:last-child { border-right: none; }
+.problem-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: #444;
+  letter-spacing: 2px; margin-bottom: 32px;
+}
+.problem-title {
+  font-size: 20px; font-weight: 500;
+  color: var(--white); margin-bottom: 16px;
+  line-height: 1.3;
+}
+.problem-body {
+  font-size: 14px; color: #666;
+  line-height: 1.75; font-weight: 300;
+}
+.problem-banner {
+  margin-top: 0;
+  padding: 24px 40px;
+  border: 1px solid #222;
+  border-top: none;
+  display: flex; align-items: center; gap: 16px;
+}
+.problem-banner-dot {
+  width: 6px; height: 6px;
+  background: #444; border-radius: 50%;
+  flex-shrink: 0;
+}
+.problem-banner p {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px; color: #555;
+  letter-spacing: 0.5px;
+}
+
+/* SOLUTION */
+#solution { background: var(--white); }
+
+.modules-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; border: 1px solid var(--border);
+}
+.module-card {
+  padding: 56px 48px;
+  border-right: 1px solid var(--border);
+}
+.module-card:last-child { border-right: none; }
+.module-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.module-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px; letter-spacing: 1px;
+  margin-bottom: 32px; line-height: 1;
+}
+.module-divider {
+  width: 100%; height: 1px;
+  background: var(--border); margin-bottom: 32px;
+}
+.module-list { list-style: none; }
+.module-list li {
+  font-size: 14px; color: var(--gray);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 12px;
+  font-weight: 300; line-height: 1.5;
+}
+.module-list li:last-child { border-bottom: none; }
+.module-list li::before {
+  content: '—';
+  color: var(--black); font-weight: 500;
+  flex-shrink: 0; margin-top: 1px;
+}
+
+/* SCREENSHOT placeholder */
+.screenshot-placeholder {
+  width: 100%; aspect-ratio: 16/9;
+  background: var(--light);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 64px;
+  position: relative; overflow: hidden;
+}
+.screenshot-placeholder::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    45deg, transparent, transparent 10px,
+    var(--border) 10px, var(--border) 11px
+  );
+  opacity: 0.3;
+}
+.screenshot-label {
+  position: relative; z-index: 1;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 3px; text-transform: uppercase;
+}
+
+/* COMPARISON */
+.comparison-wrap {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; border: 1px solid var(--border);
+  margin-bottom: 64px;
+}
+.comparison-col { }
+.comparison-head {
+  padding: 24px 40px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px;
+}
+.comparison-head.dark {
+  background: var(--black); color: var(--white);
+  border-bottom: 1px solid #222;
+}
+.comparison-head-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+}
+.comparison-row {
+  display: flex; align-items: flex-start;
+  padding: 16px 40px;
+  border-bottom: 1px solid var(--border);
+  gap: 12px; font-size: 13px; color: var(--gray);
+  font-weight: 300; line-height: 1.5;
+}
+.comparison-row:last-child { border-bottom: none; }
+.comparison-row.dark {
+  background: var(--black); color: #555;
+  border-bottom: 1px solid #1a1a1a;
+}
+.comparison-row.dark:last-child { border-bottom: none; }
+.row-icon { flex-shrink: 0; margin-top: 1px; font-size: 12px; }
+
+.savings-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; border: 1px solid var(--border); border-top: none;
+}
+.saving-item {
+  padding: 32px 40px;
+  border-right: 1px solid var(--border);
+  display: flex; align-items: baseline; gap: 12px;
+}
+.saving-item:last-child { border-right: none; }
+.saving-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px; line-height: 1;
+}
+.saving-l {
+  font-size: 13px; color: var(--gray); font-weight: 300;
+}
+
+/* TRACTION */
+#traction { background: var(--light); }
+
+.traction-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; border: 1px solid var(--border);
+  margin-bottom: 64px;
+}
+.traction-card {
+  padding: 48px 40px;
+  border-right: 1px solid var(--border);
+}
+.traction-card:last-child { border-right: none; }
+.traction-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px; line-height: 1; letter-spacing: 0px;
+  margin-bottom: 8px;
+}
+.traction-sub {
+  font-size: 14px; font-weight: 500;
+  margin-bottom: 16px;
+}
+.traction-divider {
+  width: 100%; height: 1px;
+  background: var(--border); margin-bottom: 16px;
+}
+.traction-detail {
+  font-size: 13px; color: var(--gray);
+  line-height: 1.7; font-weight: 300;
+}
+
+/* TIMELINE */
+.timeline {
+  display: flex; align-items: flex-start;
+  gap: 0; border: 1px solid var(--border);
+}
+.timeline-item {
+  flex: 1; padding: 32px 32px;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.timeline-item:last-child { border-right: none; }
+.timeline-dot {
+  width: 8px; height: 8px;
+  background: var(--black); border-radius: 50%;
+  margin-bottom: 16px;
+}
+.timeline-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.timeline-event {
+  font-size: 13px; color: var(--gray);
+  font-weight: 300; line-height: 1.5;
+}
+
+/* MARKET */
+#market { background: var(--white); }
+.market-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; border: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.market-col {
+  padding: 48px 48px;
+  border-right: 1px solid var(--border);
+}
+.market-col:last-child { border-right: none; }
+.market-col-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.market-row {
+  display: flex; justify-content: space-between;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 16px;
+}
+.market-row:last-child { border-bottom: none; }
+.market-row-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px; line-height: 1; flex-shrink: 0;
+}
+.market-row-l {
+  font-size: 13px; color: var(--gray);
+  font-weight: 300; text-align: right;
+}
+.tam-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; border: 1px solid var(--border); border-top: none;
+  background: var(--black);
+}
+.tam-item {
+  padding: 28px 40px;
+  border-right: 1px solid #1a1a1a;
+  display: flex; align-items: baseline; gap: 12px;
+}
+.tam-item:last-child { border-right: none; }
+.tam-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: #444;
+  letter-spacing: 2px;
+}
+.tam-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; color: var(--white); line-height: 1;
+}
+.tam-sub {
+  font-size: 11px; color: #444; font-weight: 300;
+  margin-left: auto;
+}
+
+/* BUSINESS MODEL */
+#bizmodel { background: var(--light); }
+
+.biz-grid { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); margin-bottom: 48px; }
+.biz-row {
+  display: grid; grid-template-columns: 80px 1fr 200px;
+  align-items: center; gap: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+.biz-row:last-child { border-bottom: none; }
+.biz-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 2px; padding: 36px 24px;
+  border-right: 1px solid var(--border);
+  align-self: stretch; display: flex; align-items: center;
+}
+.biz-content { padding: 36px 40px; border-right: 1px solid var(--border); }
+.biz-title {
+  font-size: 16px; font-weight: 500;
+  margin-bottom: 8px;
+}
+.biz-desc {
+  font-size: 13px; color: var(--gray);
+  font-weight: 300; line-height: 1.65;
+}
+.biz-price {
+  padding: 36px 32px; text-align: right;
+}
+.biz-price-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px; letter-spacing: 0.5px;
+  display: block;
+}
+.biz-price-l {
+  font-size: 11px; color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 1px;
+}
+
+.unit-econ {
+  display: flex; gap: 0;
+  border: 1px solid var(--border); border-top: none;
+}
+.unit-item {
+  flex: 1; padding: 24px 40px;
+  border-right: 1px solid var(--border);
+  display: flex; align-items: baseline; gap: 10px;
+}
+.unit-item:last-child { border-right: none; }
+.unit-n { font-family: 'Bebas Neue', sans-serif; font-size: 32px; }
+.unit-l { font-size: 12px; color: var(--gray); font-weight: 300; }
+
+/* TEAM */
+#team { background: var(--white); }
+
+.team-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 0; border: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.team-card {
+  padding: 40px 28px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.team-card:last-child { border-right: none; }
+.team-avatar {
+  width: 72px; height: 72px;
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px; color: var(--black);
+  overflow: hidden;
+}
+.team-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover; border-radius: 50%;
+}
+.team-name {
+  font-size: 13px; font-weight: 500;
+  margin-bottom: 6px; line-height: 1.3;
+}
+.team-role {
+  font-size: 11px; color: var(--muted);
+  font-weight: 300; line-height: 1.5;
+}
+
+.team-badges {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; border: 1px solid var(--border); border-top: none;
+}
+.team-badge {
+  padding: 24px 40px;
+  border-right: 1px solid var(--border);
+  display: flex; align-items: center; gap: 16px;
+}
+.team-badge:last-child { border-right: none; }
+.badge-icon { font-size: 20px; }
+.badge-text strong {
+  display: block; font-size: 13px; font-weight: 500;
+  margin-bottom: 2px;
+}
+.badge-text span {
+  font-size: 12px; color: var(--gray); font-weight: 300;
+}
+
+/* CTA */
+#contact {
+  background: var(--black); color: var(--white);
+  text-align: center;
+  padding: 160px 48px;
+}
+.cta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: #444;
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 40px;
+}
+.cta-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(60px, 10vw, 120px);
+  line-height: 0.9; letter-spacing: -1px;
+  color: var(--white); margin-bottom: 40px;
+}
+.cta-sub {
+  font-size: 16px; color: #555;
+  font-weight: 300; margin-bottom: 56px;
+  max-width: 500px; margin-left: auto; margin-right: auto;
+  line-height: 1.7;
+}
+.cta-email {
+  display: inline-block;
+  border: 1px solid #333;
+  padding: 18px 48px;
+  color: var(--white); text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+}
+.cta-email:hover {
+  background: var(--white); color: var(--black);
+}
+.cta-bottom {
+  margin-top: 80px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 32px;
+}
+.cta-site {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: #333;
+  letter-spacing: 2px;
+}
+
+/* FOOTER */
+footer {
+  background: var(--black);
+  padding: 32px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid #1a1a1a;
+}
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px; letter-spacing: 3px;
+  color: #333;
+}
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: #333;
+  letter-spacing: 1px;
+}
+
+/* ANIMATIONS */
+.fade-up {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  section { padding: 80px 24px; }
+  .hero { padding: 0 24px 60px; }
+  .hero-title { font-size: 72px; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; }
+  .hero-stats { flex-wrap: wrap; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .problem-card { border-right: none; border-bottom: 1px solid #222; }
+  .modules-grid { grid-template-columns: 1fr; }
+  .module-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .comparison-wrap { grid-template-columns: 1fr; }
+  .traction-grid { grid-template-columns: 1fr; }
+  .traction-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .market-grid { grid-template-columns: 1fr; }
+  .market-col { border-right: none; border-bottom: 1px solid var(--border); }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .savings-row { grid-template-columns: 1fr; }
+  .team-badges { grid-template-columns: 1fr; }
+  .biz-row { grid-template-columns: 1fr; }
+  .biz-num { border-right: none; border-bottom: 1px solid var(--border); }
+  .biz-content { border-right: none; border-bottom: 1px solid var(--border); }
+  .tam-row { grid-template-columns: 1fr; }
+  .timeline { flex-direction: column; }
+  .timeline-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .unit-econ { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">DOMINIFY</a>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#traction">Traction</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Get in touch →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-label">ATM Intelligence Platform</div>
+    <h1 class="hero-title">DOMINIFY</h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        Predicts cash-out events 24–72 hours in advance.
+        Optimizes collection routes. Recommends optimal
+        locations for new ATMs. Built for Central Asian banks.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-n">0.987</span>
+          <span class="hero-stat-l">AUC-ROC</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-n">#2/52</span>
+          <span class="hero-stat-l">Hackathon</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-n">547</span>
+          <span class="hero-stat-l">ATMs · SQB</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-n">36h</span>
+          <span class="hero-stat-l">Built in</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="section-label">The Problem <span>/ 01</span></div>
+  <h2 class="section-title">BANKS RUN<br>ON GUESSWORK</h2>
+  <div class="problem-grid fade-up">
+    <div class="problem-card">
+      <div class="problem-num">01</div>
+      <div class="problem-title">Cash-Out Events</div>
+      <p class="problem-body">ATM empties mid-cycle. Next refill days away. Three days of zero cash — lost clients, emergency costs, reputational damage. Each incident costs the bank $500–$1,500.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">02</div>
+      <div class="problem-title">Fixed Schedule</div>
+      <p class="problem-body">Every ATM gets refilled on a fixed schedule with a fixed amount — regardless of demand. On salary day it empties in 48 hours. On a quiet day it sits full all week. The rule doesn't know the difference.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-num">03</div>
+      <div class="problem-title">No Placement Logic</div>
+      <p class="problem-body">New ATM locations chosen by manager intuition and branch requests. No demand map. No competitor analysis. High-traffic zones go unserved for years.</p>
+    </div>
+  </div>
+  <div class="problem-banner">
+    <div class="problem-banner-dot"></div>
+    <p>SQB · 547 ATMs across Uzbekistan · 170 in Tashkent · Currently managed with static rules and zero predictive intelligence</p>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+  <div class="section-label">The Solution <span>/ 02</span></div>
+  <h2 class="section-title">ONE PLATFORM.<br>THREE MODULES.</h2>
+
+  <div class="modules-grid fade-up">
+    <div class="module-card">
+      <div class="module-tag">Module 01</div>
+      <div class="module-title">ATM CASH MONITOR</div>
+      <div class="module-divider"></div>
+      <ul class="module-list">
+        <li>Predicts cash-out 24 / 48 / 72h in advance</li>
+        <li>XGBoost · AUC-ROC 0.987 · AUC-PR 0.96</li>
+        <li>Live WebSocket dashboard on Tashkent map</li>
+        <li>ML-weighted collection route optimizer</li>
+        <li>Navro'z · Ramadan · salary day awareness</li>
+        <li>Baseline vs AI — 95% fewer cash-out incidents</li>
+      </ul>
+    </div>
+    <div class="module-card">
+      <div class="module-tag">Module 02</div>
+      <div class="module-title">ATM PLACEMENT AI</div>
+      <div class="module-divider"></div>
+      <ul class="module-list">
+        <li>Real-time OpenStreetMap data via Overpass API</li>
+        <li>Influence zones: malls 1km · metro 500m · markets 800m</li>
+        <li>Zone overlap = demand intensity heatmap</li>
+        <li>Gap analysis vs all competitor ATMs</li>
+        <li>Top-10 recommended locations with score</li>
+        <li>4-layer model: geo → demand → competitors → dynamics</li>
+      </ul>
+    </div>
+    <div class="module-card">
+      <div class="module-tag">Module 03</div>
+      <div class="module-title">ROUTE OPTIMIZER</div>
+      <div class="module-divider"></div>
+      <ul class="module-list">
+        <li>Hybrid 2-opt TSP + Greedy Nearest Neighbor</li>
+        <li>ML-weighted priority scoring per ATM</li>
+        <li>OSRM real road network · OpenStreetMap</li>
+        <li>Multi-vehicle assignment via geo-clustering</li>
+        <li>Critical ATMs served first regardless of distance</li>
+        <li>30–40% reduction in collection distance</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Dashboard screenshot -->
+  <div class="screenshot-placeholder fade-up">
+    <img src="image-d.png" alt="Dashboard Screenshot" style="width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1;">
+  </div>
+
+  <!-- Comparison -->
+  <div style="margin-top: 80px;">
+    <div class="section-label" style="margin-bottom: 32px;">Banks react. Dominify predicts. <span>/ 02.1</span></div>
+    <div class="comparison-wrap fade-up">
+      <div class="comparison-col">
+        <div class="comparison-head">
+          <div class="comparison-head-label" style="color: var(--muted);">Current System</div>
+        </div>
+        <div class="comparison-row"><span class="row-icon">✕</span> Fixed refill schedule every N days</div>
+        <div class="comparison-row"><span class="row-icon">✕</span> Same amount for every ATM</div>
+        <div class="comparison-row"><span class="row-icon">✕</span> No demand awareness</div>
+        <div class="comparison-row"><span class="row-icon">✕</span> 15–20 cash-out events per month</div>
+        <div class="comparison-row"><span class="row-icon">✕</span> Fixed collection route</div>
+        <div class="comparison-row"><span class="row-icon">✕</span> New ATM: manager intuition</div>
+      </div>
+      <div class="comparison-col">
+        <div class="comparison-head dark">
+          <div class="comparison-head-label">Dominify</div>
+        </div>
+        <div class="comparison-row dark"><span class="row-icon" style="color:#555;">✓</span> <span style="color:#888;">Refill when predicted demand requires</span></div>
+        <div class="comparison-row dark"><span class="row-icon" style="color:#555;">✓</span> <span style="color:#888;">Amount calculated per ATM individually</span></div>
+        <div class="comparison-row dark"><span class="row-icon" style="color:#555;">✓</span> <span style="color:#888;">Navro'z · Ramadan · salary days built-in</span></div>
+        <div class="comparison-row dark"><span class="row-icon" style="color:#555;">✓</span> <span style="color:#888;">Less than 2 cash-out events per month</span></div>
+        <div class="comparison-row dark"><span class="row-icon" style="color:#555;">✓</span> <span style="color:#888;">ML-optimized, risk-weighted routing</span></div>
+        <div class="comparison-row dark"><span class="row-icon" style="color:#555;">✓</span> <span style="color:#888;">New ATM: data-driven score map</span></div>
+      </div>
+    </div>
+    <div class="savings-row">
+      <div class="saving-item">
+        <span class="saving-n">95%</span>
+        <span class="saving-l">fewer cash-out events</span>
+      </div>
+      <div class="saving-item">
+        <span class="saving-n">34%</span>
+        <span class="saving-l">route distance saved</span>
+      </div>
+      <div class="saving-item">
+        <span class="saving-n">2×</span>
+        <span class="saving-l">less idle liquidity</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACTION -->
+<section id="traction">
+  <div class="section-label">Traction <span>/ 03</span></div>
+  <h2 class="section-title">BUILT IN 36H.<br>ALREADY VALIDATED.</h2>
+
+  <div class="traction-grid fade-up">
+    <div class="traction-card">
+      <div class="traction-n">2nd</div>
+      <div class="traction-sub">of 52 teams</div>
+      <div class="traction-divider"></div>
+      <p class="traction-detail">250 participants · GCG Fintech Hackathon 2026 · First-ever fintech project for the team</p>
+    </div>
+    <div class="traction-card">
+      <div class="traction-n">0.987</div>
+      <div class="traction-sub">AUC-ROC Score</div>
+      <div class="traction-divider"></div>
+      <p class="traction-detail">XGBoost double architecture · 40+ engineered features · Time-split · no data leakage</p>
+    </div>
+    <div class="traction-card">
+      <div class="traction-n">SQB</div>
+      <div class="traction-sub">Interest confirmed</div>
+      <div class="traction-divider"></div>
+      <p class="traction-detail">547 ATMs nationwide · Meeting with department directors · Negotiations in progress</p>
+    </div>
+  </div>
+
+  <div class="timeline fade-up">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Apr 2026</div>
+      <div class="timeline-event">Hackathon — 2nd place out of 52 teams</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Apr 2026</div>
+      <div class="timeline-event">SQB HQ meeting with department directors</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">May 2026</div>
+      <div class="timeline-event">Real data integration — SQB pilot</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Q3 2026</div>
+      <div class="timeline-event">Production launch · First paying client</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section id="market">
+  <div class="section-label">Market <span>/ 04</span></div>
+  <h2 class="section-title">LARGE MARKET.<br>ZERO COMPETITION.</h2>
+
+  <div class="market-grid fade-up">
+    <div class="market-col">
+      <div class="market-col-tag">Uzbekistan — Now</div>
+      <div class="market-row">
+        <span class="market-row-n">30+</span>
+        <span class="market-row-l">commercial banks</span>
+      </div>
+      <div class="market-row">
+        <span class="market-row-n">~3,000</span>
+        <span class="market-row-l">ATMs nationwide</span>
+      </div>
+      <div class="market-row">
+        <span class="market-row-n">0</span>
+        <span class="market-row-l">predictive cash management systems</span>
+      </div>
+      <div class="market-row">
+        <span class="market-row-n">$450K</span>
+        <span class="market-row-l">TAM implementation fees only</span>
+      </div>
+    </div>
+    <div class="market-col">
+      <div class="market-col-tag">Central Asia — Next</div>
+      <div class="market-row">
+        <span class="market-row-n">KZ</span>
+        <span class="market-row-l">Kazakhstan · 700+ banks · same problem</span>
+      </div>
+      <div class="market-row">
+        <span class="market-row-n">KG</span>
+        <span class="market-row-l">Kyrgyzstan · emerging fintech market</span>
+      </div>
+      <div class="market-row">
+        <span class="market-row-n">TJ</span>
+        <span class="market-row-l">Tajikistan · underserved · high cash usage</span>
+      </div>
+      <div class="market-row" style="border-bottom:none;">
+        <span class="market-row-n" style="font-size:18px; line-height:1.4;">Shared cultural calendar — Navro'z, Ramadan, salary cycles. One model. Five markets.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tam-row fade-up">
+    <div class="tam-item">
+      <span class="tam-tag">TAM</span>
+      <span class="tam-n">$2M+</span>
+      <span class="tam-sub">Central Asia</span>
+    </div>
+    <div class="tam-item">
+      <span class="tam-tag">SAM</span>
+      <span class="tam-n">$500K</span>
+      <span class="tam-sub">Uzbekistan · 3 yrs</span>
+    </div>
+    <div class="tam-item">
+      <span class="tam-tag">SOM</span>
+      <span class="tam-n">$150K</span>
+      <span class="tam-sub">Year one · 3–5 banks</span>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS MODEL -->
+<section id="bizmodel">
+  <div class="section-label">Business Model <span>/ 05</span></div>
+  <h2 class="section-title">B2B SAAS FOR<br>FINANCIAL INSTITUTIONS</h2>
+
+  <div class="biz-grid fade-up">
+    <div class="biz-row">
+      <div class="biz-num">01</div>
+      <div class="biz-content">
+        <div class="biz-title">Implementation Fee</div>
+        <p class="biz-desc">One-time per bank. Data pipeline setup, model training on real transactions, dashboard deployment, internal systems integration and staff onboarding.</p>
+      </div>
+      <div class="biz-price">
+        <span class="biz-price-n">$15–20K</span>
+        <span class="biz-price-l">per bank</span>
+      </div>
+    </div>
+    <div class="biz-row">
+      <div class="biz-num">02</div>
+      <div class="biz-content">
+        <div class="biz-title">Annual License</div>
+        <p class="biz-desc">SaaS subscription. Hosting and infrastructure, quarterly model retraining, technical support, feature updates and prediction quality monitoring.</p>
+      </div>
+      <div class="biz-price">
+        <span class="biz-price-n">$5–8K</span>
+        <span class="biz-price-l">per year</span>
+      </div>
+    </div>
+    <div class="biz-row">
+      <div class="biz-num">03</div>
+      <div class="biz-content">
+        <div class="biz-title">Module Expansion</div>
+        <p class="biz-desc">Cash desk management for branch liquidity. White-label version for resale. Multi-region and multi-currency deployment.</p>
+      </div>
+      <div class="biz-price">
+        <span class="biz-price-n">Custom</span>
+        <span class="biz-price-l">per scope</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="unit-econ fade-up">
+    <div class="unit-item">
+      <span class="unit-n">$35.5K</span>
+      <span class="unit-l">LTV per client · 3 years</span>
+    </div>
+    <div class="unit-item">
+      <span class="unit-n">$2–3K</span>
+      <span class="unit-l">Customer acquisition cost</span>
+    </div>
+    <div class="unit-item">
+      <span class="unit-n">~12×</span>
+      <span class="unit-l">LTV / CAC ratio</span>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-label">Team <span>/ 06</span></div>
+  <h2 class="section-title">5 ENGINEERS.<br>AGE 19.</h2>
+
+  <div class="team-grid fade-up">
+    <div class="team-card">
+      <div class="team-avatar">U</div>
+      <div class="team-name">Umid Dadajonov</div>
+      <div class="team-role">Team Lead · Strategy & Architecture</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">D</div>
+      <div class="team-name">Isomov Dilshod</div>
+      <div class="team-role">Backend · FastAPI · WebSocket</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">A</div>
+      <div class="team-name">Djemilov Arslan</div>
+      <div class="team-role">ML Engineer · Models & Training</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">M</div>
+      <div class="team-name">Malika Xayitmetova</div>
+      <div class="team-role">Data Engineer · Frontend</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">M</div>
+      <div class="team-name">Madina Xabibova</div>
+      <div class="team-role">Data Analyst · Research</div>
+    </div>
+  </div>
+
+  <div class="team-badges fade-up">
+    <div class="team-badge">
+      <div class="badge-icon">🎓</div>
+      <div class="badge-text">
+        <strong>Inha University, Tashkent</strong>
+        <span>Applying ML methods 2 years ahead of curriculum</span>
+      </div>
+    </div>
+    <div class="team-badge">
+      <div class="badge-icon">🏆</div>
+      <div class="badge-text">
+        <strong>GCG Fintech Hackathon 2026</strong>
+        <span>2nd place · 52 teams · 250 participants · First fintech project</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact">
+  <div class="cta-label">Get in touch / 07</div>
+  <h2 class="cta-title">LET'S BUILD<br>TOGETHER</h2>
+  <p class="cta-sub">We're seeking $50,000 seed investment to bring Dominify to production and close the SQB pilot.</p>
+  <a class="cta-email" href="mailto:hello@dominify.app">hello@dominify.app</a>
+  <div class="cta-bottom">
+    <span class="cta-site">dominify.app</span>
+    <span class="cta-site">·</span>
+    <span class="cta-site">Tashkent, Uzbekistan</span>
+    <span class="cta-site">·</span>
+    <span class="cta-site">2026</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">DOMINIFY</span>
+  <span class="footer-copy">© 2026 Dominify. All rights reserved.</span>
+</footer>
+
+<script>
+// Fade-up on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Nav active state
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? '#0A0A0A' : '';
+  });
+});
+</script>
+</body>
+</html>
